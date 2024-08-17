@@ -44,8 +44,9 @@ function AppContent() {
 
   const { isLoading } = useQuery({
     queryKey: ["users/2"],
-    retry: 0,
-    onSuccess: authenticate,
+    onSuccess: () => {
+      authenticate();
+    },
   });
 
   const theme =
@@ -56,10 +57,6 @@ function AppContent() {
       SplashScreen.hideAsync();
     }
   }, [loaded, isLoading]);
-
-  if (!loaded) {
-    return null;
-  }
 
   return (
     <PaperProvider theme={theme}>

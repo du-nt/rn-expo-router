@@ -34,7 +34,7 @@ export default function Login() {
   const authenticate = useBoundStore((state) => state.authenticate);
   const { refetch } = useQuery<User>({
     queryKey: ["users/2"],
-    refetchOnMount: false,
+    enabled: false,
   });
 
   const {
@@ -56,7 +56,7 @@ export default function Login() {
   >({
     url: "users",
     onSuccess: async () => {
-      await refetch;
+      await refetch();
       authenticate();
     },
   });

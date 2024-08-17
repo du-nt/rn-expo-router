@@ -17,7 +17,7 @@ export default function HomeScreen() {
 
   const { data } = useQuery<User>({
     queryKey: ["users/2"],
-    refetchOnMount: false,
+    enabled: false,
   });
 
   const handleLogout = () => {
