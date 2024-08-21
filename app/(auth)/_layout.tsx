@@ -1,10 +1,16 @@
+import { useQuery } from "@/hooks/useQuery";
 import useBoundStore from "@/store";
+import { User } from "@/types";
 import { Redirect, Stack } from "expo-router";
 
 export default function AuthLayout() {
-  const isAuthenticated = useBoundStore((state) => state.isAuthenticated);
+  // const isAuthenticated = useBoundStore((state) => state.isAuthenticated);
+  const { data } = useQuery<User>({
+    queryKey: ["users/2"],
+    enabled: false,
+  });
 
-  if (isAuthenticated) {
+  if (data) {
     return <Redirect href="/" />;
   }
 

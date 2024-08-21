@@ -31,7 +31,7 @@ import {
 export default function Login() {
   const theme: MD3Theme = useTheme();
   const styles = makeStyles(theme);
-  const authenticate = useBoundStore((state) => state.authenticate);
+  // const authenticate = useBoundStore((state) => state.authenticate);
   const { refetch } = useQuery<User>({
     queryKey: ["users/2"],
     enabled: false,
@@ -55,10 +55,13 @@ export default function Login() {
     LoginFormValues
   >({
     url: "users",
-    onSuccess: async () => {
-      await refetch();
-      authenticate();
+    onSuccess: () => {
+      refetch();
     },
+    // onSuccess: async () => {
+    //   await refetch();
+    //   authenticate();
+    // },
   });
 
   const onSubmit = (formValues: LoginFormValues) => mutate(formValues);

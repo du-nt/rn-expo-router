@@ -2,7 +2,7 @@ import { useFonts } from "expo-font";
 import { Stack } from "expo-router";
 import { StatusBar } from "expo-status-bar";
 import * as SplashScreen from "expo-splash-screen";
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
 import "react-native-reanimated";
 import {
   ThemeProvider,
@@ -40,13 +40,22 @@ function AppContent() {
   const [loaded] = useFonts({
     SpaceMono: require("../assets/fonts/SpaceMono-Regular.ttf"),
   });
-  const authenticate = useBoundStore((state) => state.authenticate);
+  // const authenticate = useBoundStore((state) => state.authenticate);
 
-  const { isLoading } = useQuery({
+  const mountedRef = useRef<boolean>(true);
+
+  const { isLoading, data } = useQuery({
     queryKey: ["users/2"],
+    enabled: !mountedRef.current,
     onSuccess: () => {
-      authenticate();
+      mountedRef.current = false;
     },
+    onError: () => {
+      mountedRef.current = false;
+    },
+    // onSuccess: () => {
+    //   authenticate();
+    // },
   });
 
   const theme =

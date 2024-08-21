@@ -13,7 +13,7 @@ import { User } from "@/types";
 
 export default function HomeScreen() {
   const queryClient = useQueryClient();
-  const unAuthenticate = useBoundStore((state) => state.unAuthenticate);
+  // const unAuthenticate = useBoundStore((state) => state.unAuthenticate);
 
   const { data } = useQuery<User>({
     queryKey: ["users/2"],
@@ -21,7 +21,8 @@ export default function HomeScreen() {
   });
 
   const handleLogout = () => {
-    unAuthenticate();
+    // unAuthenticate();
+    queryClient.setQueryData(["users/2"], null);
     queryClient.removeQueries();
   };
 
